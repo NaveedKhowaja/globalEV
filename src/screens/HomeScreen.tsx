@@ -1,13 +1,15 @@
 import { View, StyleSheet } from 'react-native';
-import React from 'react';
 import Searchbar from '../components/Searchbar';
 import PagerViewContainer from '../components/PagerViewContainer';
+import useLocation from '../utils/useLocation';
 
 const HomeScreen = () => {
+  const location = useLocation();
+
   return (
     <View style={styles.container}>
       <Searchbar />
-      <PagerViewContainer />
+      <PagerViewContainer location={location} />
     </View>
   );
 };

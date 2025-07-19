@@ -4,10 +4,15 @@ import PagerView from 'react-native-pager-view';
 import OCMList from './OCMList';
 import OCMMap from './OCMMap';
 import useOCMChargingPoints from '../utils/useOCMChargingPoints';
+import GeoLocationType from '../types/GeoLocation';
 
-const PagerViewContainer = () => {
+type PropsType = {
+  location: GeoLocationType;
+};
+
+const PagerViewContainer = ({ location }: PropsType) => {
   const pagerRef = useRef<PagerView | null>(null);
-  const ocmCharginPoints = useOCMChargingPoints();
+  const ocmCharginPoints = useOCMChargingPoints(location);
 
   return (
     <View style={styles.container}>
@@ -19,7 +24,13 @@ const PagerViewContainer = () => {
           <Text style={styles.pageTitleText}>Map</Text>
         </TouchableOpacity>
       </View>
-      <PagerView style={styles.pagerView} initialPage={0} scrollEnabled={false} ref={pagerRef}>
+      <PagerView
+        style={styles.pagerView}
+        initialPage={0}
+        scrollEnabled={false}
+        ref={pagerRef}
+        collapsable={false}
+      >
         <OCMList data={ocmCharginPoints} />
         <OCMMap data={ocmCharginPoints} />
       </PagerView>
